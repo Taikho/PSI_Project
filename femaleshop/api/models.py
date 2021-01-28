@@ -1,4 +1,14 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 
 class DodatkoweInfo(models.Model):
@@ -47,3 +57,24 @@ class Uzytkownik(models.Model):
 
     def __str__(self):
         return self.imie + "(" + str(self.adres_mailowy) + ")"
+
+
+class Zamowienie(models.Model):
+    klient = models.ForeignKey(Uzytkownik, related_name='uzytkownik', on_delete=models.CASCADE)
+    produkt = models.ForeignKey(Product, related_name='produkty', on_delete=models.CASCADE)
+    cena = models.DecimalField(max_digits=10, decimal_places=2)
+    data_utworzenia = models.DateTimeField(auto_now_add=True)
+    ilosc = models.IntegerField(null=False)
+    numer_pot = models.IntegerField(null=False)
+
+
+class Tranzakcja(models.Model):
+    PRZELEW = 'Przelew'
+    PAYPAL = 'Paypal'
+    SPOSOB_PLATNOSCI = ((PRZELEW, 'przelewem'), (PAYPAL, 'paypalem'),)
+    potwierdzenie = models.BooleanField(null=False, default=False)
+    platnosc = models.CharField(max_length=10, choices=SPOSOB_PLATNOSCI, default=PRZELEW)
+    zamowienie = models.ForeignKey(Zamowienie, related_name='zamowienie', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.platnosc + "(" + str(self.potwierdzenie) + ")"

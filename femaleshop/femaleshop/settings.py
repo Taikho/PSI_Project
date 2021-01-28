@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'api',
+
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,14 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3,
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
 WSGI_APPLICATION = 'femaleshop.wsgi.application'
 
 
@@ -77,8 +87,13 @@ WSGI_APPLICATION = 'femaleshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "shop",
+        "USER": "root",
+        "PASSWORD": "nowehaslo10",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+
     }
 }
 
