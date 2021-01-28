@@ -10,3 +10,8 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
 
 ]
+
+
+urlpatterns += [
+
+]

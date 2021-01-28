@@ -41,12 +41,6 @@ class Product(models.Model):
         return self.nazwa + "(" + str(self.cena) + " )"
 
 
-class Opinia(models.Model):
-    tekst_rec = models.TextField(default='')
-    gwiazdy = models.IntegerField(default=0)
-    produkt = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='opinie')
-
-
 class Uzytkownik(models.Model):
     imie = models.CharField(max_length=50, null=False)
     nazwisko = models.CharField(max_length=50, null=False)
@@ -57,6 +51,13 @@ class Uzytkownik(models.Model):
 
     def __str__(self):
         return self.imie + "(" + str(self.adres_mailowy) + ")"
+
+class Opinia(models.Model):
+    tekst_rec = models.TextField(default='')
+    gwiazdy = models.IntegerField(default=0)
+    produkt = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='opinie')
+    uzytkownik = models.ForeignKey(Uzytkownik, on_delete=models.CASCADE, related_name='opinie')
+
 
 
 class Zamowienie(models.Model):

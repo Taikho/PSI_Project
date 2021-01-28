@@ -1,8 +1,7 @@
 from django.conf.urls import path
-from rest_framework import routers
 from api import views
 
-router = routers.DefaultRouter()
+
 path('products', views.ProductList.as_view(), name=views.ProductList.name),
 path('products/<int:pk>', views.ProductDetail.as_view(), name=views.ProductDetail.name),
 path('users', views.UserList.as_view(), name=views.UserList.name),
