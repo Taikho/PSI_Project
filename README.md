@@ -6,6 +6,6 @@ Chciałbym żeby to było wzorowane na damskim sklepie odzieżowym.
 
 
 # Model bazy danych
-![db_schema](https://user-images.githubusercontent.com/46679014/99663053-58379300-2a66-11eb-989a-2f2245a4890c.png)
+![db_schema](https://user-images.githubusercontent.com/46679014/106076432-d459f100-610f-11eb-908b-c7fb8d2c1c10.png)
 
 
